@@ -1,36 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Robert Nattrass — Portfolio 2026
+
+A modern, animated developer portfolio built with Next.js, featuring a dot-distortion shader background, typewriter effects, interactive world map, and contact form with Resend email integration.
+
+![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)
+![React](https://img.shields.io/badge/React-19-61dafb?logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
+![Tailwind](https://img.shields.io/badge/Tailwind-4-38bdf8?logo=tailwind-css)
+
+## Features
+
+- **Hero Section** — Typewriter animation, blur-fade text effects, and hero photo
+- **Projects** — Portfolio project showcase
+- **Logo Clouds** — Marquee-style logo display
+- **Services** — Consultation metrics grid (performance audit, UX heatmap, SEO, tech roadmap, GSAP, React SaaS, Next.js refactors)
+- **Pricing / Remote Globe** — Interactive world map with animated connection dots for remote client availability
+- **Contact Form** — Email integration via Resend with toast notifications and failure alerts
+- **Responsive Layout** — Mobile-first with sticky navbar and smooth scroll navigation
+- **Dark Mode** — Theme toggle with `next-themes`
+
+## Tech Stack
+
+- **Framework:** Next.js 16 (App Router)
+- **UI:** React 19, Motion (Framer Motion), Radix UI, shadcn/ui
+- **Styling:** Tailwind CSS 4, tw-animate
+- **Icons:** Tabler Icons, Lucide React
+- **Email:** Resend
+- **Notifications:** Sonner
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- npm or pnpm
+
+### Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/RobNatt/Robs-Portfolio-Mar-2026.git
+cd Robs-Portfolio-Mar-2026
+
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create a `.env.local` file in the project root for contact form email delivery:
 
-## Learn More
+```env
+RESEND_API_KEY=re_xxxxxxxxxxxx
+```
 
-To learn more about Next.js, take a look at the following resources:
+Get your API key from [Resend](https://resend.com). Without it, the contact form will display a configuration message instead of sending emails.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production |
+| `npm run start` | Start production server |
+| `npm run lint` | Run ESLint |
 
-## Deploy on Vercel
+## Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+src/
+├── app/              # Next.js App Router
+│   ├── actions/      # Server actions (contact form)
+│   ├── globals.css
+│   └── page.tsx
+├── components/
+│   ├── ui/           # Reusable UI (typewriter, world-map)
+│   ├── ContactForm.tsx
+│   ├── ConsultationMetrics.tsx
+│   ├── DotDistortionShader.tsx
+│   ├── Footer.tsx
+│   ├── HeaderNavBar.tsx
+│   ├── HeroPhoto.tsx
+│   ├── LogoClouds.tsx
+│   ├── Projects.tsx
+│   ├── RemoteGlobe.tsx
+│   └── TextEffects.tsx
+└── lib/
+    └── utils.ts
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deployment
+
+Deploy to [Vercel](https://vercel.com), [Netlify](https://netlify.com), or any platform that supports Next.js. Add `RESEND_API_KEY` to your environment variables in the hosting dashboard.
+
+## License
+
+© 2026 Robert Nattrass. All rights reserved.
