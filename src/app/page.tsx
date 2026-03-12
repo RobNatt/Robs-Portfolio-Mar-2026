@@ -9,6 +9,7 @@ import { RemoteGlobe } from "@/components/RemoteGlobe";
 import { ContactForm } from "@/components/ContactForm";
 import { ConsultationMetrics } from "@/components/ConsultationMetrics";
 import { TypewriterEffectDemo } from "@/components/TypewriterEffect";
+import { ThreeDCard } from "@/components/3dCard";
 
 export default function Home() {
   return (
@@ -27,25 +28,24 @@ export default function Home() {
       {/* Content layer above background */}
       <div className="relative z-10 max-w-screen-lg mx-auto">
         <SimpleNavbarWithHoverEffects />
-        <div className="flex flex-row items-center justify-center">
+        <div className="flex items-center justify-center">
           <TextAnimationTypewriterEffect />
-          <HeroPhoto />
         </div>
-        <div id="projects" className="mt-32 scroll-mt-32">
+        <div id="projects" className="mt-32 scroll-mt-20">
           <TextAnimationBlurFadeIn />
         </div>
-        <Projects />
+        <ThreeDCard />
         <LogoClouds />
-        <div id="Services" className="mt-32 scroll-mt-32">
+        <div id="Services" className="mt-32 scroll-mt-20">
           <TypewriterEffectDemo />
         </div>
-        <div id="consultation-metrics" className="scroll-mt-32">
+        <div id="consultation-metrics" className="scroll-mt-20">
           <ConsultationMetrics />
         </div>
-        <div id="prices" className="scroll-mt-32">
+        <div id="prices" className="scroll-mt-20">
           <RemoteGlobe />
         </div>
-        <div id="contact" className="scroll-mt-32">
+        <div id="contact" className="scroll-mt-20">
           <ContactForm />
         </div>
         <Footer />

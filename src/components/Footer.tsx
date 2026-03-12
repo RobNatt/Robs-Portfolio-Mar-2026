@@ -66,10 +66,10 @@ export function Footer() {
             &copy; Robert Nattrass 2026
           </p>
           <div className="flex gap-4">
-            <Link href="www.linkedin.com/in/robert-nattrass-iii">
+            <Link href="https://www.linkedin.com/in/robert-nattrass-iii" className="cursor-pointer">
               <IconBrandLinkedin className="h-6 w-6 text-neutral-500 dark:text-neutral-300" />
             </Link>
-            <Link href="https://github.com/RobNatt">
+            <Link href="https://github.com/RobNatt" className="cursor-pointer">
               <IconBrandGithub className="h-6 w-6 text-neutral-500 dark:text-neutral-300" />
             </Link>
           </div>
@@ -118,7 +118,7 @@ const Logo = () => {
   return (
     <Link
       href="/"
-      className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black"
+      className="relative z-20 mr-4 flex cursor-pointer items-center space-x-2 px-2 py-1 text-sm font-normal text-black"
     >
       <img
         src="https://assets.aceternity.com/logo-dark.png"

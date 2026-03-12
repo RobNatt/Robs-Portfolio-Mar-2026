@@ -1,13 +1,14 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { IconMenu2, IconX } from "@tabler/icons-react";
+import { IconMenu2, IconMoon, IconSun, IconX } from "@tabler/icons-react";
 import { motion, AnimatePresence } from "motion/react";
 import Link from "next/link";
-import React, { useState } from "react";
+import { useTheme } from "next-themes";
+import React, { useEffect, useState } from "react";
 
 export function SimpleNavbarWithHoverEffects() {
   return (
-    <div className="w-full px-2 py-20">
+    <div className="relative z-[60] w-full px-2 py-10">
       <Navbar />
     </div>
   );
@@ -45,7 +46,7 @@ const DesktopNav = ({ navItems }: any) => {
         {navItems.map((navItem: any, idx: number) => (
           <Link
             onMouseEnter={() => setHovered(idx)}
-            className="relative px-4 py-2 text-neutral-600 dark:text-neutral-300"
+            className="relative cursor-pointer px-4 py-2 text-neutral-600 dark:text-neutral-300"
             key={`link=${idx}`}
             href={navItem.link}
           >
@@ -59,9 +60,12 @@ const DesktopNav = ({ navItems }: any) => {
           </Link>
         ))}
       </div>
+      <div className="hidden flex-row items-center gap-1 md:flex">
+        <ThemeToggle />
+      </div>
       <Link
         href="#contact"
-        className="hidden rounded-full bg-black px-8 py-2 text-sm font-bold text-white shadow-[0px_-2px_0px_0px_rgba(255,255,255,0.4)_inset] md:block dark:bg-white dark:text-black"
+        className="hidden cursor-pointer rounded-full bg-black px-8 py-2 text-sm font-bold text-white shadow-[0px_-2px_0px_0px_rgba(255,255,255,0.4)_inset] md:block dark:bg-white dark:text-black"
       >
         Hire Me
       </Link>
@@ -77,21 +81,24 @@ const MobileNav = ({ navItems }: any) => {
       <motion.div
         animate={{ borderRadius: open ? "4px" : "2rem" }}
         key={String(open)}
-        className="relative mx-auto flex w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-between bg-white px-4 py-2 lg:hidden dark:bg-neutral-950"
+        className="relative z-[60] mx-auto flex w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-between bg-white px-4 py-2 lg:hidden dark:bg-neutral-950"
       >
         <div className="flex w-full flex-row items-center justify-between">
           <Logo />
-          {open ? (
-            <IconX
-              className="text-black dark:text-white"
-              onClick={() => setOpen(!open)}
-            />
-          ) : (
-            <IconMenu2
-              className="text-black dark:text-white"
-              onClick={() => setOpen(!open)}
-            />
-          )}
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            {open ? (
+              <IconX
+                className="cursor-pointer text-black dark:text-white"
+                onClick={() => setOpen(!open)}
+              />
+            ) : (
+              <IconMenu2
+                className="cursor-pointer text-black dark:text-white"
+                onClick={() => setOpen(!open)}
+              />
+            )}
+          </div>
         </div>
 
         <AnimatePresence>
@@ -107,7 +114,7 @@ const MobileNav = ({ navItems }: any) => {
                   key={`link=${idx}`}
                   href={navItem.link}
                   onClick={() => setOpen(false)}
-                  className="relative text-neutral-600 dark:text-neutral-300"
+                  className="relative cursor-pointer text-neutral-600 dark:text-neutral-300"
                 >
                   <motion.span className="block">{navItem.name} </motion.span>
                 </Link>
@@ -115,7 +122,7 @@ const MobileNav = ({ navItems }: any) => {
               <Link
                 href="#contact"
                 onClick={() => setOpen(false)}
-                className="w-full rounded-lg bg-black px-8 py-2 font-medium text-white shadow-[0px_-2px_0px_0px_rgba(255,255,255,0.4)_inset] dark:bg-white dark:text-black text-center block"
+                className="block w-full cursor-pointer rounded-lg bg-black px-8 py-2 text-center font-medium text-white shadow-[0px_-2px_0px_0px_rgba(255,255,255,0.4)_inset] dark:bg-white dark:text-black"
               >
                 Book a call
               </Link>
@@ -127,11 +134,54 @@ const MobileNav = ({ navItems }: any) => {
   );
 };
 
+const ThemeToggle = () => {
+  const { setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Use resolvedTheme only after mount to avoid server/client mismatch
+  const isDark = mounted && resolvedTheme === "dark";
+
+  return (
+    <div className="flex rounded-full bg-neutral-100 p-1 dark:bg-neutral-800">
+      <button
+        type="button"
+        onClick={() => setTheme("light")}
+        className={cn(
+          "rounded-full p-1.5 transition-colors",
+          !isDark
+            ? "bg-white text-amber-500 shadow-sm dark:text-amber-400"
+            : "text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200"
+        )}
+        aria-label="Switch to light mode"
+      >
+        <IconSun className="h-4 w-4" />
+      </button>
+      <button
+        type="button"
+        onClick={() => setTheme("dark")}
+        className={cn(
+          "cursor-pointer rounded-full p-1.5 transition-colors",
+          isDark
+            ? "bg-neutral-700 text-sky-400 shadow-sm dark:bg-neutral-600"
+            : "text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200"
+        )}
+        aria-label="Switch to dark mode"
+      >
+        <IconMoon className="h-4 w-4" />
+      </button>
+    </div>
+  );
+};
+
 const Logo = () => {
   return (
     <Link
       href="/"
-      className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black"
+      className="relative z-20 mr-4 flex cursor-pointer items-center space-x-2 px-2 py-1 text-sm font-normal text-black"
     >
       <img
         src="https://assets.aceternity.com/logo-dark.png"

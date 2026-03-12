@@ -54,7 +54,7 @@ export function LogoClouds() {
       <h2 className="bg-gradient-to-b from-neutral-900 to-neutral-600 bg-clip-text text-center font-sans text-2xl font-bold text-transparent md:text-5xl dark:from-white dark:to-neutral-600">
         The Tech
       </h2>
-      <p className="mt-4 text-center font-sans bg-white p-4 rounded-lg text-base text-neutral-700 dark:text-neutral-300">
+      <p className="mt-4 text-center font-sans bg-white p-4 rounded-lg text-base text-neutral-700 dark:text-neutral-600">
         When creating websites and apps, I use a combination of the following technologies.
       </p>
 

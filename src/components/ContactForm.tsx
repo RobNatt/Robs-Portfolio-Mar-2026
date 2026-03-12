@@ -140,7 +140,7 @@ export function ContactForm() {
                   <button
                     type="submit"
                     disabled={status === "sending"}
-                    className="bg-black relative z-10 hover:bg-black/90 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm md:text-sm transition font-medium duration-200 rounded-full px-4 py-2 flex items-center justify-center w-full dark:text-black dark:bg-white dark:hover:bg-neutral-100 dark:hover:shadow-xl"
+                    className="bg-black relative z-10 cursor-pointer hover:bg-black/90 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm md:text-sm transition font-medium duration-200 rounded-full px-4 py-2 flex items-center justify-center w-full dark:text-black dark:bg-white dark:hover:bg-neutral-100 dark:hover:shadow-xl"
                   >
                     {status === "sending" ? "Sending..." : "Submit"}
                   </button>
@@ -150,7 +150,7 @@ export function ContactForm() {
           </div>
           <div className="flex items-center justify-center space-x-4 py-4">
             {socials.map((social) => (
-              <Link href={social.href} key={social.title}>
+              <Link href={social.href} key={social.title} className="cursor-pointer">
                 {social.icon}
               </Link>
             ))}

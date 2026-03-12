@@ -1,240 +1,103 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+
+import React from "react";
+import { motion } from "motion/react";
+import Link from "next/link";
+import { CardContainer, CardBody, CardItem } from "@/components/ui/3d-card";
 
 import synctaskImg from "../../public/synctask.png";
 import roofTrackImg from "../../public/RoofTrack.png";
 import collabPlannerImg from "../../public/Collab-Planner.png";
 import websiteAuditImg from "../../public/Websiteaudittool.png";
 
+const items = [
+  {
+    title: "SyncTask",
+    description: "Agnostic workflow engine with strict, role-based orchestration.",
+    src: synctaskImg.src,
+    demoLink: "https://sync-task-qjro.vercel.app",
+    githubLink: "https://github.com/RobNatt/sync-task",
+  },
+  {
+    title: "RoofTrack",
+    description: "App-like roofing CRM with rich GSAP animations",
+    src: roofTrackImg.src,
+    demoLink: "https://roof-track-mvp.vercel.app",
+    githubLink: "https://github.com/RobNatt/roof-track-mvp",
+  },
+  {
+    title: "Collab Planner",
+    description: "Collaborative trip planner SaaS with Stripe billing.",
+    src: collabPlannerImg.src,
+    demoLink: "https://collab-planner.vercel.app",
+    githubLink: "https://github.com/RobNatt/collab-planner",
+  },
+  {
+    title: "Website Audit Tool",
+    description: "Lighthouse-powered website audits that turn into leads",
+    src: websiteAuditImg.src,
+    demoLink: "https://website-audit-tool-eta.vercel.app",
+    githubLink: "https://github.com/RobNatt/website-audit-tool",
+  },
+];
+
 export function Projects() {
-  const items = [
-    {
-      title: "SyncTask",
-      description: "Agnostic workflow engine with strict, role-based orchestration.",
-      src: synctaskImg.src,
-      link: "https://sync-task-qjro.vercel.app",
-      content: (
-        <div>
-          <p>Realtime, multi-actor project sync</p>
-          <p>Config-driven stages and dependencies</p>
-          <p>Type-safe Next.js 15 backend</p>
-          <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="rounded-lg border bg-white mt-4 rounded-lg border-neutral-300 px-6 py-3 font-medium text-neutral-900 transition-colors hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-100 dark:hover:bg-neutral-800"
-        >
-          <span onClick={() => window.open("https://sync-task-qjro.vercel.app", "_blank")}>View Project</span>
-        </motion.button>
-        </div>
-      ),
-    },
-    {
-      title: "RoofTrack",
-      description: "App-like roofing CRM with rich GSAP animations",
-      src: roofTrackImg.src,
-      link: "https://roof-track-mvp.vercel.app",
-      content: (
-        <div>
-          <p>Apple-feel dashboard for roofing teams</p>
-          <p>Smooth, high-frictionless lead workflows</p>
-          <p>Built with React, GSAP, Tailwind</p>
-          <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="rounded-lg border bg-white mt-4 rounded-lg border-neutral-300 px-6 py-3 font-medium text-neutral-900 transition-colors hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-100 dark:hover:bg-neutral-800"
-        >
-          <span onClick={() => window.open("https://roof-track-mvp.vercel.app", "_blank")}>View Project</span>
-        </motion.button>
-        </div>
-      ),
-    },
-    {
-      title: "Collab Planner",
-      description: "Collaborative trip planner SaaS with Stripe billing.",
-      src: collabPlannerImg.src,
-      link: "https://collab-planner.vercel.app",
-      content: (
-        <div>
-          <p>Real-time shared itineraries and notes</p>
-          <p>Lifetime-deal onboarding live today</p>
-          <p>Next.js, Supabase, TypeScript stack</p>
-          <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="rounded-lg border bg-white mt-4 rounded-lg border-neutral-300 px-6 py-3 font-medium text-neutral-900 transition-colors hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-100 dark:hover:bg-neutral-800"
-        >
-          <span onClick={() => window.open("https://collab-planner.vercel.app", "_blank")}>View Project</span>
-        </motion.button>
-        </div>
-      ),
-    },
-    {
-      title: "Website Audit Tool",
-      description: "Lighthouse-powered website audits that turn into leads",
-      src: websiteAuditImg.src,
-      link: "https://website-audit-tool-eta.vercel.app",
-      content: (
-        <div>
-          <p>Runs live Lighthouse performance tests</p>
-          <p>Instant UX, speed, and SEO insights</p>
-          <p>Captures high-intent leads from audits</p>
-          <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="rounded-lg border bg-white mt-4 rounded-lg border-neutral-300 px-6 py-3 font-medium text-neutral-900 transition-colors hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-100 dark:hover:bg-neutral-800"
-        >
-          <span onClick={() => window.open("https://website-audit-tool-eta.vercel.app", "_blank")}>View Project</span>
-        </motion.button>
-        </div>
-      ),
-    },
-  ];
-  const [active, setActive] = useState<null | (typeof items)[number]>(null);
-
-  const ref = useRef<HTMLDivElement>(null);
-
-  useOutsideClick(ref as React.RefObject<HTMLDivElement>, () => {
-    setActive(null);
-  });
-
-  useEffect(() => {
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setActive(null);
-      }
-    };
-
-    document.addEventListener("keydown", handleEscape);
-    return () => document.removeEventListener("keydown", handleEscape);
-  }, []);
-
   return (
     <div className="relative h-full w-full">
       <div className="mx-auto grid max-w-4xl grid-cols-1 gap-10 px-4 py-10 md:grid-cols-2 md:px-8 md:py-20">
-        <AnimatePresence>
-          {active && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="absolute top-0 left-0 z-10 h-full w-full bg-black/50"
-            ></motion.div>
-          )}
-        </AnimatePresence>
-        <AnimatePresence>
-          {active && (
-            <motion.div
-              key="project-modal"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-[100] grid place-items-center"
-            >
-            <motion.div
-              layoutId={`card-${active.title}`}
-              ref={ref}
-              key={active.title}
-              className="max-w-sm rounded-2xl bg-white shadow-md dark:bg-neutral-900"
-            >
-              <motion.div layoutId={`image-${active.title}`} className="overflow-hidden rounded-t-2xl">
-                <div className="mx-auto flex h-60 w-full items-center justify-center bg-neutral-100 p-4 dark:bg-neutral-800">
-                  <img
-                    src={active.src}
-                    alt={active.title}
-                    width={500}
-                    height={500}
-                    className="max-h-full max-w-full rounded-lg object-contain"
-                  />
-                </div>
-              </motion.div>
-              <div className="flex flex-col items-start p-6">
-                <motion.p
-                  layoutId={`title-${active.title}`}
-                  className="text-lg font-bold text-neutral-800 dark:text-neutral-100"
-                >
-                  {active.title}
-                </motion.p>
-                <motion.p
-                  layoutId={`description-${active.title}`}
-                  className="text-sm text-neutral-500 dark:text-neutral-300"
-                >
-                  {active.description}
-                </motion.p>
-                <motion.div
-                  layout
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="mt-4 text-neutral-600 dark:text-neutral-400"
-                >
-                  {active.content}
-                </motion.div>
-              </div>
-            </motion.div>
-          </motion.div>
-          )}
-        </AnimatePresence>
         {items.map((item) => (
-          <motion.div
-            layoutId={`card-${item.title}`}
-            onClick={() => setActive(item)}
+          <CardContainer
             key={item.title}
-            className="cursor-pointer rounded-2xl bg-white shadow-md dark:bg-neutral-900"
+            containerClassName="w-full py-0"
+            className="w-full rounded-2xl bg-white shadow-md dark:bg-neutral-900 [transform-style:preserve-3d]"
           >
-            <motion.div layoutId={`image-${item.title}`} className="overflow-hidden rounded-t-2xl">
-              <div className="mx-auto flex h-60 w-full items-center justify-center bg-neutral-100 p-4 dark:bg-neutral-800">
-                <img
-                  src={item.src}
-                  alt={item.title}
-                  width={500}
-                  height={500}
-                  className="max-h-full max-w-full rounded-lg object-contain"
-                />
+            <CardBody className="h-auto w-full min-h-0 [transform-style:preserve-3d]">
+              <CardItem translateZ={20} className="w-full">
+                <div className="overflow-hidden rounded-t-2xl">
+                  <div className="mx-auto flex h-60 w-full items-center justify-center bg-neutral-100 p-4 dark:bg-neutral-800">
+                    <img
+                      src={item.src}
+                      alt={item.title}
+                      width={500}
+                      height={500}
+                      className="max-h-full max-w-full rounded-lg object-contain"
+                    />
+                  </div>
+                </div>
+              </CardItem>
+              <div className="flex flex-col items-start gap-3 p-6">
+                <p className="text-lg font-bold text-neutral-800 dark:text-neutral-100">
+                  {item.title}
+                </p>
+                <p className="text-sm text-neutral-500 dark:text-neutral-300">
+                  {item.description}
+                </p>
+                <div className="mt-2 flex w-full flex-wrap gap-3">
+                  <Link href={item.demoLink} target="_blank" rel="noopener noreferrer" className="cursor-pointer">
+                    <motion.button
+                      whileHover={{ scale: 1.08 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="cursor-pointer rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm font-medium text-neutral-900 transition-colors hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-100 dark:hover:bg-neutral-700"
+                    >
+                      View Demo
+                    </motion.button>
+                  </Link>
+                  <Link href={item.githubLink} target="_blank" rel="noopener noreferrer" className="cursor-pointer">
+                    <motion.button
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="flex cursor-pointer items-center gap-2 rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm font-medium text-neutral-900 transition-colors hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-100 dark:hover:bg-neutral-700"
+                      aria-label="View on GitHub"
+                    >
+                      &lt;&gt;
+                    </motion.button>
+                  </Link>
+                </div>
               </div>
-            </motion.div>
-            <div className="flex flex-col items-start p-6">
-              <motion.p
-                layoutId={`title-${item.title}`}
-                className="text-lg font-bold text-neutral-800 dark:text-neutral-100"
-              >
-                {item.title}
-              </motion.p>
-              <motion.p
-                layoutId={`description-${item.title}`}
-                className="text-sm text-neutral-500 dark:text-neutral-300"
-              >
-                {item.description}
-              </motion.p>
-            </div>
-          </motion.div>
+            </CardBody>
+          </CardContainer>
         ))}
       </div>
     </div>
   );
 }
-
-export const useOutsideClick = (
-  ref: React.RefObject<HTMLDivElement>,
-  callback: Function,
-) => {
-  useEffect(() => {
-    const listener = (event: any) => {
-      // DO NOTHING if the element being clicked is the target element or their children
-      if (!ref.current || ref.current.contains(event.target)) {
-        return;
-      }
-      callback(event);
-    };
-
-    document.addEventListener("mousedown", listener);
-    document.addEventListener("touchstart", listener);
-
-    return () => {
-      document.removeEventListener("mousedown", listener);
-      document.removeEventListener("touchstart", listener);
-    };
-  }, [ref, callback]);
-};
